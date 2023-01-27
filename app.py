@@ -51,7 +51,14 @@ def make_app():
   return Application(urls)
   
 if __name__ == '__main__':
+  
   try:
     asyncio.run(main())
   except KeyboardInterrupt:
-    sys.exit('\nInterrupted by user')
+    pass
+  finally:
+    loop = asyncio.new_event_loop()
+    loop.stop()
+    loop.run_until_complete(loop.shutdown_asyncgens())
+    loop.close()
+
